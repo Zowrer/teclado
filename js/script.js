@@ -1,4 +1,4 @@
-var box = '#ball', drag = $('.drag'), drop = $('.key');
+var box = '#ball', drag = $('.ball'), drop = $('.key');
 
 var ball   = document.querySelector('#ball');
 var garden = document.querySelector('.keyboard');
