@@ -1,0 +1,29 @@
+{
+    "version": "1.0",
+    "name": "TeclApp",
+    "description": "Teclado para personas con alguna discapacidad",
+    "launch_path": "/index.html",
+    "appcache_path": "/offline.appcache",
+    "icons": {
+        "16": "/img/icon16.png",
+        "30": "/img/icon30.png",
+        "32": "/img/icon32.png",
+        "48": "/img/icon48.png",
+        "60": "/img/icon60.png",
+        "64": "/img/icon64.png",
+        "90": "/img/icon90.png",
+        "120": "/img/icon120.png",
+        "128": "/img/icon128.png",
+        "256": "/img/icon256.png"
+    },
+    "developer": {
+        "name": "Paola Estrada, Zowrer",
+        "url": "https://github.com/Zowrer/teclado"
+    },
+    "installs_allowed_from": ["*"],
+    "default_locale": "es",
+    "permissions": {},
+    "fullscreen": "true",
+    "type": "web",
+    "orientation": "landscape"
+}
