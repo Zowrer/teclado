@@ -1,52 +1,48 @@
-var box = '#ball', drag = $('.ball'), drop = $('.key');
-
-var x=0;
-var y=0;
-
-var x1=0;
-var y2=0;
+var key = $('.key'), x = 0, y = 0, x1 = 0, y2 = 0, time = 0, keypulse = "", keyresp = "";
 
 var ball   = document.querySelector('#ball');
-var garden = document.querySelector('.keyboard');
+var keyboard = document.querySelector('.keyboard');
 
-var maxX = garden.clientWidth  - ball.clientWidth;
-var maxY = garden.clientHeight - ball.clientHeight;
+var maxX = keyboard.clientWidth  - ball.clientWidth;
+var maxY = keyboard.clientHeight - ball.clientHeight;
 
 function handleOrientation(event) {
+    if ((event.beta >  x1) && ( x< 300 )) {
+        x +=  5;
+    }else if (x >50){
+        x -= 5;
+    }
 
+    if ((event.gamma >  y2) && (y< 800)) {
+        y +=  5;
+    }else if (y > 50){
+        y -= 5;
+    }
 
-  // Because we don't want to have the device upside down
-  // We constrain the x value to the range [-90,90]
-  if ((event.beta >  x1) && ( x< 300 )) { x+=  5}
-  else
-	if (x >50)
-		{ x -=5};
+    ball.style.top  = x + "px";
+    ball.style.left = y + "px";
+    x1 = event.beta;
+    y2 = event.gamma;
 
-  if ((event.gamma >  y2) && (y< 800)) { y+=  5}
-  else
-	if (y > 50)
-	{ y -= 5};
+    var collides = key.overlaps('#ball');
+    $('#ball')[collides.hits.length ? 'addClass' : 'removeClass']('over');
+    key.removeClass('under');
+    $(collides.targets).addClass('under');
+    keypulse = "";
+    keypulse = $(collides.targets).html();
 
-  // To make computation easier we shift the range of
-  // // x and y to [0,180]
-  // x += 90;
-  // y += 90;
-
-  // 10 is half the size of the ball
-  // It center the positioning point to the center of the ball
-  ball.style.top  = x + "px";
-  ball.style.left = y + "px";
-
-   x1 = event.beta;
-   y2 = event.gamma;
-
-  /*** :plugin specific code ***/
-
-  var collides = drop.overlaps(box);
-  $(box)[collides.hits.length ? 'addClass' : 'removeClass']('over');
-  drop.removeClass('under');
-  $(collides.targets).addClass('under');
-  /*** plugin specific code: ***/
+    if ((keypulse != "") && (keypulse != undefined)) {
+        keyresp = keypulse;
+    }
 }
 
 window.addEventListener('deviceorientation', handleOrientation);
+setTimeout("temporizador()", 2000);
+function temporizador(){
+    if (keyresp == keypulse) {
+        var str = $('#input').val();
+        str += keyresp;
+        $('#input').val(str);
+        setTimeout("temporizador()", 2000);
+    }
+}
